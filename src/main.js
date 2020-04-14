@@ -1,8 +1,16 @@
-import Vue from 'vue'
-import App from './App.vue'
+import Vue from "vue";
+import App from "./App.vue";
+import router from "./routes";
+import vuetify from "./plugins/vuetify";
 
-Vue.config.productionTip = false
+let EventBus = new Vue();
+
+Vue.prototype.$eventBus = EventBus;
+
+Vue.config.productionTip = false;
 
 new Vue({
-  render: h => h(App),
-}).$mount('#app')
+  router,
+  vuetify,
+  render: h => h(App)
+}).$mount("#app");
