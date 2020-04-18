@@ -47,8 +47,10 @@
     <v-dialog v-model="results_dialog" persistent max-width="330">
       <v-card>
         <v-card-title class="headline">Vote to kick {{ game_data.vote_target }}</v-card-title>
-        <v-card-text>Waiting for others to vote...</v-card-text>
-        <h2 style='position: relative; bottom: 10px; left: 25px'> {{ calced_vote_count }} / {{ alive_count }} </h2>
+        <v-card-text>
+          <h4 v-for="item in eligable_voters" :key="'eglb'+item.id">{{ item.name }}: {{ vote_to_text(item.vote) }} </h4>
+        </v-card-text>
+        <h2 style='position: relative; bottom: 10px; left: 25px'> {{ voted_yes_count }} / {{ votes_needed }} </h2>
 
       </v-card>
     </v-dialog>
@@ -110,10 +112,24 @@ import router from "../routes";
                 return u.id != player_id
             })
         },
+        eligable_voters: function(){
+            var game = this.game_data
+            return this.players.filter(function(u){
+                return u.id != game.vote_target_id && u.is_alive
+            })
+        },
         alive_count: function(){
             return this.players.filter(function(u){
                 return u.is_alive
             }).length
+        },
+        voted_yes_count: function(){
+            return this.players.filter(function(u){
+                return u.vote == 1
+            }).length
+        },
+        votes_needed: function(){
+            return Math.floor( this.alive_count / 2 ) + 1
         },
         calced_vote_count: function(){
             if(this.game_data.vote_count==-1){
@@ -133,7 +149,7 @@ import router from "../routes";
     methods: {
         vote(is_yes){
             axiosInstance
-            .post("vote/" , {'game': this.game, 'is_yes': is_yes})
+            .post("vote/" , {'game': this.game, 'is_yes': is_yes, 'player': this.player})
             .then(() => {
                 this.dialog = false
                 this.results_dialog = true
@@ -144,7 +160,7 @@ import router from "../routes";
         },
         start_vote(id){
             axiosInstance
-                .post("vote/create/" , {'game': this.game, 'target': id})
+                .post("vote/create/" , {'game': this.game, 'target': id, 'player': this.player})
                 .then(() => {
                     this.dialog = false
                     this.results_dialog = true
@@ -152,6 +168,15 @@ import router from "../routes";
                 .catch(e => {
                   console.log(e.response)
                 });    
+        },
+        vote_to_text(vote){
+          if(vote == 0){
+            return 'No'
+          }
+          if(vote==1){
+            return 'Yes'
+          }
+          return 'Deciding'
         },
         get_villian_text(item){
             if(item.unknown){
@@ -184,7 +209,14 @@ import router from "../routes";
                   }
 
                   if(this.game_data.vote && !this.results_dialog && this.player_data.is_alive){
-                      this.dialog=true
+                      if(this.game_data.vote_target_id == this.player){
+                        this.dialog=false
+                        this.results_dialog=true
+                      }
+                      else{
+                        this.dialog=true
+                      }
+                      
                   }
                   else{
                       this.dialog=false
