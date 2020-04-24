@@ -1,9 +1,9 @@
 <template>
   <v-app >
     <center style='border: 3px solid #19eda6; height: 100%;'>
-      <h1 style='margin-bottom: 20px; background: #19eda6; color: white;'> SBR Game </h1>
+      <h1 style='margin-bottom: 20px; background: #19eda6; color: white;'> The Town Game </h1>
       <p>
-        Welcome to SBR Game! Create a new game and invite your friends, or join an existing one
+        Welcome to The Town Game! Create a new game and invite your friends, or join an existing one
       </p>
       <br>
         <h1 style='color: #19eda6; margin-bottom: 25px'>Create a game</h1>
