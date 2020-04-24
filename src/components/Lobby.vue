@@ -10,7 +10,7 @@
       style='background: #19eda6; color: white; margin: 10px; border-radius: 5px; padding: 10px;
              padding: 5px; border: 3px dashed #16b881; max-width: 300px'>Game ID: {{ game }}</h2>
 
-      <v-btn :disabled='start_btn_disabled' @click='start_game()' outlined style='margin-top: 20px; font-size: 18px'>Start</v-btn>
+      <v-btn v-if="show_start" :disabled='start_btn_disabled' @click='start_game()' outlined style='margin-top: 20px; font-size: 18px'>Start</v-btn>
 
       <div style='margin-top: 50px; font-size: 24px'>
         <h2 style='text-align: left; margin: 10px; color: #19eda6'>Players:</h2>
@@ -39,7 +39,8 @@ import router from "../routes";
       game: -1,
       player: -1,
       players: [],
-      start_btn_disabled: false
+      start_btn_disabled: false,
+      show_start: false
     }),
 
     mounted () {
@@ -66,6 +67,9 @@ import router from "../routes";
                 .post("state/" , {'game': this.game, 'player': this.player})
                 .then(res => {
                   this.players = res['data']['game']['players']
+                  if(this.player == res['data']['game']['creator_id']){
+                    this.show_start = true
+                  }
 
                   if(res['data']['game']['phase'] == 2)
                   {
