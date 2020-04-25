@@ -1,6 +1,7 @@
 <template>
   <v-app >
     <center style='border: 3px solid #19eda6; height: 100%;'>
+      <img :src='require(`@/assets/logo.png`)' style='position: absolute; top: 0; right: 10px;' width='50px' height='50px'>
       <h1 style='margin-bottom: 20px; background: #19eda6; color: white;'> The Town Game </h1>
       <p>
         Welcome to The Town Game! Create a new game and invite your friends, or join an existing one
@@ -19,6 +20,8 @@
         <v-text-field style='max-width: 400px;' color='#19eda6' filled v-model='player_name' label='Nickname'></v-text-field>
         <v-text-field style='max-width: 400px;' color='#19eda6' filled v-model='game_id' label='Game ID'></v-text-field>
         <v-btn style='color: white' color='#19eda6' @click='join_game' :disabled='game_id == "" || player_name == ""'>Join a game</v-btn>
+
+        <div style='color: #555; position: absolute; bottom: 2px; right: 6px; font-size: 12px; opacity: .6'>Made with <span style='color: #19eda6'>♥</span> by Bentzy</div>
     </center>
 
     <v-alert border="top"

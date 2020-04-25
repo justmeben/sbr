@@ -1,7 +1,8 @@
 <template>
   <v-app>
     <center style='border: 3px solid #19eda6; height: 100%;'>
-      <h1 style='margin-bottom: 20px; background: #19eda6; color: white;'> The Town Game Lobby </h1>
+      <img :src='require(`@/assets/logo.png`)' style='position: absolute; top: 0; right: 10px;' width='50px' height='50px'>
+      <h1 style='margin-bottom: 20px; background: #19eda6; color: white;'> The Town Lobby </h1>
       <p>
         Waiting for people to join
       </p>

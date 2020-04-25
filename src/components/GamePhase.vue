@@ -3,6 +3,7 @@
     <center style='border: 3px solid #19eda6; height: 100%;'>
       <div>
         <h1 style='margin-bottom: 20px; background: #19eda6; color: white;'> The Town Game </h1>
+        <img :src='require(`@/assets/logo.png`)' style='position: absolute; top: 0; right: 10px;' width='50px' height='50px'>
         <h2 style='text-align: left; margin: 10px; color: #19eda6'>You:</h2>
         <div class='cardcont'>
           <div class='card cardalt' v-bind:class="{ carddisabled: !player_data.is_alive }">

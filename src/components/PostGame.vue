@@ -2,7 +2,8 @@
   <v-app>
     <center style='border: 3px solid #19eda6; height: 100%;'>
       <div>
-        <h1 style='margin-bottom: 20px; background: #19eda6; color: white;'> The Town Game Results </h1>
+        <h1 style='margin-bottom: 20px; background: #19eda6; color: white;'> The Town Results </h1>
+        <img :src='require(`@/assets/logo.png`)' style='position: absolute; top: 0; right: 10px;' width='50px' height='50px'>
         <h1 style='background: #19dfed; color: white; max-width: 300px; 
         margin-bottom: 30px; border: 2px dashed white; border-radius: 5px;'> {{ end_game_msg }} </h1>
         
